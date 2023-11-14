@@ -1,0 +1,36 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        maxheap = list()
+
+        def HeapifyUp(heap,index):
+            while index>0:
+                parent = (index-1) // 2
+                if heap[index]>heap[parent]:
+                    heap[index],heap[parent] = heap[parent],heap[index]
+                    index = parent
+                else:
+                    break
+
+        def HeapifyDown(heap,index):
+            while True:
+                left,right,greatest = 2*index+1, 2*index+2,index
+                if left<len(heap) and heap[left]>heap[greatest]:
+                    greatest = left
+                if right<len(heap) and heap[right]>heap[greatest]:
+                    greatest = right
+                if greatest != index:
+                    heap[greatest],heap[index] = heap[index],heap[greatest]
+                    index = greatest
+                else:
+                    break
+        for element in nums:
+            maxheap.append(element)
+            HeapifyUp(maxheap,len(maxheap)-1)
+        print(maxheap)
+        for i in range(k-1):
+            maxheap[0],maxheap[-1] = maxheap[-1],maxheap[0]
+            maxheap.pop()
+            HeapifyDown(maxheap,0) 
+        print(maxheap)          
+        return maxheap[0]
+            
