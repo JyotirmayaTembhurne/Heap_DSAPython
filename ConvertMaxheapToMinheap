@@ -1,0 +1,29 @@
+def min_heap_to_max_heap(min_heap):
+    max_heap = []
+
+    for element in min_heap:
+        # Insert the element into the new max-heap
+        max_heap.append(element)
+        heapify_up(max_heap, len(max_heap) - 1)
+
+    return max_heap
+
+
+def heapify_up(heap, i):
+    while i > 0:
+        parent = (i - 1) // 2
+
+        if heap[i] > heap[parent]:
+            # Swap if the current element is greater than its parent
+            heap[i], heap[parent] = heap[parent], heap[i]
+            i = parent
+        else:
+            break
+
+
+# Example
+min_heap = [1, 2, 3, 6, 7, 8]
+max_heap = min_heap_to_max_heap(min_heap)
+
+print("Min Heap:", min_heap)
+print("Max Heap:", max_heap)
