@@ -1,0 +1,98 @@
+class Heap:
+    def __init__(self):
+        self.heap = []
+
+    def HeapifyUp(self, index):
+        while index > 0:
+            parent = (index - 1) // 2
+            if self.heap[parent] > self.heap[index]:
+                self.heap[parent], self.heap[index] = (
+                    self.heap[index],
+                    self.heap[parent],
+                )
+                index = parent
+            else:
+                break
+
+    def HeapifyDown(self, index):
+        while True:
+            left = index * 2 + 1
+            right = index * 2 + 2
+            smallest = index
+            if left < len(self.heap) and self.heap[left] < self.heap[smallest]:
+                smallest = left
+            if right < len(self.heap) and self.heap[right] < self.heap[smallest]:
+                smallest = right
+            if smallest != index:
+                self.heap[smallest], self.heap[index] = (
+                    self.heap[index],
+                    self.heap[smallest],
+                )
+                index = smallest
+            else:
+                break
+
+    def Insert(self, val):
+        self.heap.append(val)
+        self.HeapifyUp(len(self.heap) - 1)
+
+    def Delete(self, index):
+        if index < len(self.heap):
+            deleted = self.heap[index]
+            self.heap[index] = self.heap[-1]
+            self.heap.pop()
+            self.HeapifyDown(index)
+            return deleted
+        else:
+            return None
+
+    def Extract(self):
+        if not self.heap:
+            return None
+        self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+        root = self.heap.pop()
+        self.HeapifyDown(0)
+        return root
+
+    def GetHeap(self):
+        return self.heap
+
+
+# Create a Heap instance
+min_heap = Heap()
+
+# Insert values
+min_heap.Insert(4)
+min_heap.Insert(7)
+min_heap.Insert(2)
+min_heap.Insert(9)
+min_heap.Insert(1)
+
+# Print the heap after insertion
+print("Heap after insertion:", min_heap.GetHeap())
+
+# Delete element at index 2
+deleted_value = min_heap.Delete(2)
+print(f"Deleted value at index 2: {deleted_value}")
+
+# Print the heap after deletion
+print("Heap after deletion:", min_heap.GetHeap())
+
+# Extract the minimum element
+min_element = min_heap.Extract()
+print(f"Extracted minimum element: {min_element}")
+
+# Print the final heap
+print("Final heap:", min_heap.GetHeap())
+# Create a MinHeap instance
+min_heap1 = Heap()
+
+# Insert values in a way that doesn't result in a fully sorted array
+min_heap1.Insert(5)
+min_heap1.Insert(3)
+min_heap1.Insert(7)
+min_heap1.Insert(2)
+min_heap1.Insert(8)
+
+# Print the heap after insertion
+print("Heap after insertion:", min_heap1.GetHeap())
