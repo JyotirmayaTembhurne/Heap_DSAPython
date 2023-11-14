@@ -1,0 +1,23 @@
+from typing import List
+
+def pop(heap: List[int]) -> int:
+    if heap:
+        root = max(heap)
+        index = heap.index(root)
+        heap.pop(index)
+        return root
+    return -1
+
+'''
+    def push(self, x):
+        self.heap.app
+        end(x)
+        pos = len(self.heap) - 1
+        while pos > 0:
+            parent = (pos - 1) // 2
+            if self.heap[pos] > self.heap[parent]:
+                self.heap[pos], self.heap[parent] = self.heap[parent], self.heap[pos]
+                pos = parent
+            else:
+                break
+'''
