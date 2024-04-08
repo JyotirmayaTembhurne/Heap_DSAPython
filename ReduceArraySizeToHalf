@@ -1,0 +1,27 @@
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        import heapq
+        freq = dict()
+        goal = len(arr) // 2
+        curr = 0
+        ans = set()
+
+        for i in range(len(arr)):
+            if arr[i] not in freq:
+                freq[arr[i]] = 0
+            freq[arr[i]] -= 1
+
+        freq = list(freq.items())
+
+        for i in range(len(freq)):
+            freq[i] = list(freq[i])
+
+        for i in range(len(freq)):
+            freq[i][0], freq[i][1] = freq[i][1], freq[i][0]
+
+        heapq.heapify(freq)
+        while curr < goal:
+            root = heapq.heappop(freq)
+            ans.add(root[1])
+            curr += abs(root[0])
+        return len(ans)
